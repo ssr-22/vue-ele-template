@@ -10,7 +10,10 @@ textarea{
   border:0;
 }
 fieldset,img{border:0;}
-a { text-decoration: none; background: none }
+a { color:white;text-decoration: none; background: none }
+a:hover{
+  color:#c53518;
+}
 ul, ol, li { list-style: none; }
 :focus{ outline:none;}
 .clr{ clear: both; content: ""; display: block; overflow: hidden }
