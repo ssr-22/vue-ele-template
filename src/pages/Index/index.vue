@@ -1,5 +1,11 @@
 <template>
-    <div style="border:1px solid red;width: 5rem;" ><a href="" class="aa">bb</a></div>
+    <div style="border:1px solid red;width: 100%;" >
+      <el-row>
+        <el-col :span="12"><div>
+          <el-button>hh</el-button>
+        </div></el-col>
+      </el-row>
+    </div>
 </template>
 
 <script>
