@@ -1,5 +1,5 @@
 <template>
-    <div>init</div>
+    <div style="border:1px solid red;width: 5rem;" ><a href="" class="aa">bb</a></div>
 </template>
 
 <script>
@@ -8,6 +8,10 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+div{
+  .aa{
+    color:red;
+  }
+}
 </style>
