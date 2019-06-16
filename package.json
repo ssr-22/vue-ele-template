@@ -15,6 +15,7 @@
   "dependencies": {
     "element-theme": "^2.0.1",
     "element-ui": "^2.9.1",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
