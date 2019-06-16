@@ -14,10 +14,16 @@ Vue.use(ElementUI);
 import '../theme/index.css'
 import infiniteScroll from 'vue-infinite-scroll'
 Vue.use(infiniteScroll)
+import store from "../src/store/store"
+
+
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

@@ -69,10 +69,19 @@
 
 <script>
   import Header from "../../components/Header/Header";
-
+  import {mapActions} from "vuex"
   export default {
     name: "Mine",
-    components: {Header}
+    components: {Header},
+    methods:{
+      ...mapActions("common",["getDataState"])
+    },
+    mounted(){
+      let obj={
+        url:"/ajax/movieOnInfoList?token="
+      }
+      this.getDataState(obj)
+    }
   }
 </script>
 
