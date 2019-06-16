@@ -1,5 +1,5 @@
 <template>
-  <div class="index" :style="{backgroundImage:'url('+bgc+')'}">
+  <div :class="['index']" :id="user.id?'logindex':''" :style="{backgroundImage:'url('+bgc+')'}">
     <div class="header">
       <div class="left">
         <a href="" @click.prevent="goPage('Live')">直播</a>
@@ -8,7 +8,7 @@
         <a href="" @click.prevent="">语音</a>
       </div>
       <div class="right">
-        <div>
+        <div v-if="!user.id">
           <a href="" @click.prevent="()=>{
         centerDialogVisible = true
         tag=0
@@ -18,30 +18,31 @@
         tag=1
         }">注册</a>
         </div>
-       <div v-if="false">
-         <a href="" @click.prevent="()=>{
-        }">杨亮礼遇</a>
+       <div v-if="user.id">
+         <a href="" @click.prevent="()=>goPage('Mine')">杨亮礼遇</a>
        </div>
         <a href="" @click.prevent="" style="margin-left:.3rem;">更多</a>
       </div>
-      <el-dialog
-        title="扫码登录"
-        :visible.sync="centerDialogVisible"
-        width="30%"
-        center>
-        <div v-if="tag==0?1:0" slot="title" class="title">
-          <img src="../../assets/imgs/logo.png"/>
-          <span>扫码登录</span>
-        </div>
-        <div v-if="tag==0?1:0">
-          <div class="dialog">
-            <div class="cont1">
-              <div class="border">
-                <img src="../../assets/imgs/qrcode.png"/>
-              </div>
-              <span>请使用o8oAPP扫码登录</span>
+
+    </div>
+    <el-dialog
+      title="扫码登录"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center>
+      <div v-if="tag==0?1:0" slot="title" class="title">
+        <img src="../../assets/imgs/logo.png"/>
+        <span>扫码登录</span>
+      </div>
+      <div v-if="tag==0?1:0">
+        <div class="dialog">
+          <div class="cont1">
+            <div class="border">
+              <img src="../../assets/imgs/qrcode.png"/>
             </div>
-            <div class="dialogcont2">
+            <span>请使用o8oAPP扫码登录</span>
+          </div>
+          <div class="dialogcont2">
             <span>
               <i class="fa fa-shield" aria-hidden="true"></i> 安全
             </span> <span>
@@ -49,175 +50,174 @@
             </span> <span>
               <i class="fa fa-etsy" aria-hidden="true"></i> 便捷
             </span>
-            </div>
-            <div class="footer">
-              <div class="f1"><a href="" @click.prevent="tag=2">用户名登录</a> | </div>
-              <div class="f2">
+          </div>
+          <div class="footer">
+            <div class="f1"><a href="" @click.prevent="tag=2">用户名登录</a> | </div>
+            <div class="f2">
               <span>
                 <a href="" @click.prevent="login">
                    <i class="fa fa-weixin" aria-hidden="true"></i>
                 </a>
               </span>
-                <span>
+              <span>
                 <a href="">
                    <i class="fa fa-qq" aria-hidden="true"></i>
                 </a>
 
               </span>
-                <span>
+              <span>
                 <a href="" @mouseover="ali='../../../static/imgs/alipay_active.png'" @mouseout="ali='../../../static/imgs/alipay.png'">
                   <img class="fa" :src="ali" alt="">
                 </a>
 
               </span>
-              </div>
-              <div class="f3">
-                <a href="" @click.prevent="tag=1">
-                  立即注册
-                </a>
+            </div>
+            <div class="f3">
+              <a href="" @click.prevent="tag=1">
+                立即注册
+              </a>
 
-              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div v-if="tag==1?1:0" slot="title" class="title">
-          <img src="../../assets/imgs/logo.png"/>
-          <span>注册</span>
-        </div>
-        <div v-if="tag==1?1:0">
-          <div class="dialog">
-            <div class="cont1">
-              <div class="form">
-                <el-form :label-position="'left'" label-width="80px" :model="formLabelAlign">
-                  <el-form-item label="用户名">
-                    <el-input v-model="formLabelAlign.name"></el-input>
-                  </el-form-item>
-                  <el-form-item label="注册类型">
-                    <el-input v-model="formLabelAlign.region" placeholder="手机号码或邮箱地址"></el-input>
-                  </el-form-item>
-                  <el-form-item label="登录密码">
-                    <el-input v-model="formLabelAlign.type"></el-input>
-                  </el-form-item>
-                  <el-form-item label="确认密码">
-                    <el-input v-model="formLabelAlign.type"></el-input>
-                  </el-form-item>
-                </el-form>
-                <div class="vertify" style="display: flex;justify-content: space-between">
-                    <el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>
-                    <el-button type="success">获取短信验证码</el-button>
-
-                </div>
-
+      <div v-if="tag==1?1:0" slot="title" class="title">
+        <img src="../../assets/imgs/logo.png"/>
+        <span>注册</span>
+      </div>
+      <div v-if="tag==1?1:0">
+        <div class="dialog">
+          <div class="cont1">
+            <div class="form">
+              <el-form :label-position="'left'" label-width="80px" :model="formLabelAlign">
+                <el-form-item label="用户名">
+                  <el-input v-model="formLabelAlign.name"></el-input>
+                </el-form-item>
+                <el-form-item label="注册类型">
+                  <el-input v-model="formLabelAlign.region" placeholder="手机号码或邮箱地址"></el-input>
+                </el-form-item>
+                <el-form-item label="登录密码">
+                  <el-input v-model="formLabelAlign.type"></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码">
+                  <el-input v-model="formLabelAlign.type"></el-input>
+                </el-form-item>
+              </el-form>
+              <div class="vertify" style="display: flex;justify-content: space-between">
+                <el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>
+                <el-button type="success">获取短信验证码</el-button>
 
               </div>
 
-            </div>
-            <div class="dialogcont2">
-              <div class="button">
-                <el-button type="primary">立即注册</el-button>
-              </div>
 
             </div>
-            <div class="footer">
-              <div class="f1"><a href="" @click.prevent="tag=0">扫码登录</a> | </div>
-              <div class="f2">
+
+          </div>
+          <div class="dialogcont2">
+            <div class="button">
+              <el-button type="primary">立即注册</el-button>
+            </div>
+
+          </div>
+          <div class="footer">
+            <div class="f1"><a href="" @click.prevent="tag=0">扫码登录</a> | </div>
+            <div class="f2">
               <span>
                 <a href="" @click.prevent="login">
                    <i class="fa fa-weixin" aria-hidden="true"></i>
                 </a>
               </span>
-                <span>
+              <span>
                 <a href="">
                    <i class="fa fa-qq" aria-hidden="true"></i>
                 </a>
 
               </span>
-                <span>
+              <span>
                 <a href="" @mouseover="ali='../../../static/imgs/alipay_active.png'" @mouseout="ali='../../../static/imgs/alipay.png'">
                   <img class="fa" :src="ali" alt="">
                 </a>
 
               </span>
-              </div>
-              <div class="f3">
-                <a href="" @click.prevent="()=>{
+            </div>
+            <div class="f3">
+              <a href="" @click.prevent="()=>{
                 tag=2
                 }">
-                  账号登陆
-                </a>
+                账号登陆
+              </a>
 
-              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div v-if="tag==2?1:0" slot="title" class="title">
-          <img src="../../assets/imgs/logo.png"/>
-          <span>登录</span>
-        </div>
-        <div v-if="tag==2?1:0">
-          <div class="dialog">
-            <div class="cont1">
-              <div class="form">
-                <el-form :label-position="'left'" label-width="80px" :model="formLabelAlign">
-                  <el-form-item label="用户名">
-                    <el-input v-model="formLabelAlign.name"></el-input>
-                  </el-form-item>
-                  <el-form-item label="登录密码">
-                    <el-input v-model="formLabelAlign.type"></el-input>
-                  </el-form-item>
-                </el-form>
-                <div class="vertify" style="display: flex;justify-content: space-between">
-                  <el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>
-                  <el-button type="success">验证码</el-button>
-
-                </div>
-
+      <div v-if="tag==2?1:0" slot="title" class="title">
+        <img src="../../assets/imgs/logo.png"/>
+        <span>登录</span>
+      </div>
+      <div v-if="tag==2?1:0">
+        <div class="dialog">
+          <div class="cont1">
+            <div class="form">
+              <el-form :label-position="'left'" label-width="80px" :model="formLabelAlign">
+                <el-form-item label="用户名">
+                  <el-input v-model="formLabelAlign.name"></el-input>
+                </el-form-item>
+                <el-form-item label="登录密码">
+                  <el-input v-model="formLabelAlign.type"></el-input>
+                </el-form-item>
+              </el-form>
+              <div class="vertify" style="display: flex;justify-content: space-between">
+                <el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>
+                <el-button type="success">验证码</el-button>
 
               </div>
 
-            </div>
-            <div class="dialogcont2">
-              <div class="button">
-                <el-button type="primary">立即登录</el-button>
-              </div>
 
             </div>
-            <div class="footer">
-              <div class="f1"><a href="" @click.prevent="tag=0">扫码登录</a> | </div>
-              <div class="f2">
+
+          </div>
+          <div class="dialogcont2">
+            <div class="button">
+              <el-button type="primary">立即登录</el-button>
+            </div>
+
+          </div>
+          <div class="footer">
+            <div class="f1"><a href="" @click.prevent="tag=0">扫码登录</a> | </div>
+            <div class="f2">
               <span>
                 <a href="" @click.prevent="login">
                    <i class="fa fa-weixin" aria-hidden="true"></i>
                 </a>
               </span>
-                <span>
+              <span>
                 <a href="">
                    <i class="fa fa-qq" aria-hidden="true"></i>
                 </a>
 
               </span>
-                <span>
+              <span>
                 <a href="" @mouseover="ali='../../../static/imgs/alipay_active.png'" @mouseout="ali='../../../static/imgs/alipay.png'">
                   <img class="fa" :src="ali" alt="">
                 </a>
 
               </span>
-              </div>
-              <div class="f3">
-                <a href="" @click.prevent="tag=1">
-                  去注册
-                </a>
+            </div>
+            <div class="f3">
+              <a href="" @click.prevent="tag=1">
+                去注册
+              </a>
 
-              </div>
             </div>
           </div>
         </div>
-      </el-dialog>
-    </div>
+      </div>
+    </el-dialog>
     <div class="cont">
-      <div class="cont1">
+      <div class="cont1" :style="{marginTop:user.id?'.7rem':'2rem',paddingLeft:'1.9rem'}">
         <div style="width:4rem;height:1.7rem;">
           <img src="../../assets/imgs/logo.png" style="width:100%;height: 100%; "/>
         </div>
@@ -249,7 +249,11 @@
     <div v-if="user.id" class="box">
       <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="我关注的" name="first">我关注的</el-tab-pane>
-        <el-tab-pane label="导航" name="second">导航</el-tab-pane>
+        <el-tab-pane label="导航" name="second">
+          <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+            <div v-for="item in data" :key="item.index">{{item.name}}</div>
+          </div>
+        </el-tab-pane>
         <el-tab-pane label="推荐" name="third">推荐</el-tab-pane>
         <el-tab-pane label="标签" name="fourth">标签</el-tab-pane>
         <el-tab-pane label="定制" name="five">定制</el-tab-pane>
@@ -269,8 +273,11 @@
     data() {
       return {
         user:{
-          id:true
+          id:"123"
         },
+        count: 0,
+        data: [],
+        busy: false,
         activeName: 'second',
         ali:"../../../static/imgs/alipay.png",
         bgc: "",
@@ -286,6 +293,19 @@
       }
     },
     methods: {
+      loadMore: function() {
+        this.busy = true
+        setTimeout(() => {
+          for (var i = 0, j = 10; i < j; i++) {
+            this.data.push({name: this.count++ })
+          }
+          console.log(this.data)
+          this.busy = false
+        }, 1000)
+      },
+      load () {
+        this.count += 2
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       },
@@ -513,7 +533,16 @@
   }
 </style>
 <style lang="scss">
-
+   #logindex{
+    background: #fff !important;
+     color:black!important;
+     .header{
+       /*background: gray;*/
+       a{
+         color:black;
+       }
+     }
+  }
   .index {
     .el-dialog{
       width:40% !important;
@@ -537,7 +566,8 @@
       padding: 0 !important;
     }
     .box{
-      width:80%;
+      width:90%;
+      background :#f5f7fa;
       margin:0 auto;
       color:black;
       .el-tabs__item{
