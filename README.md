@@ -1,2 +1,1 @@
-# o8o
-中文乱码解决
+# vue-element-template

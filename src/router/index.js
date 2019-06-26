@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from "../pages/Index/index"
-import Live from "../pages/Live/Live"
 import Mine from "../pages/Mine/Mine"
 
 Vue.use(Router)
@@ -16,11 +15,6 @@ let router= new Router({
       path: '/index',
       name: 'Index',
       component: Index
-    },
-    {
-    path:"/live",
-      name:"Live",
-      component:Live
     },
     {
     path:"/mine",
